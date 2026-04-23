@@ -1,0 +1,15 @@
+CREATE TABLE wallets (
+    wallet_id INT PRIMARY KEY AUTO_INCREMENT,
+    customer_id INT NOT NULL UNIQUE,
+    balance DECIMAL(12,2) NOT NULL DEFAULT 0 CHECK (balance >= 0),
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);
+
+CREATE TABLE wallet_transactions (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    wallet_id INT NOT NULL,
+    type VARCHAR(10) NOT NULL,
+    amount DECIMAL(12,2) NOT NULL CHECK (amount > 0),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (wallet_id) REFERENCES wallets(wallet_id)
+);
